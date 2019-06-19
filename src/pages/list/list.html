@@ -3,11 +3,15 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My First List</ion-title>
+    <ion-title>My Chats</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-fab right bottom>
+    <button ion-fab color="secondary"><ion-icon name="add" (click)="newChat($event)"></ion-icon></button>
+  </ion-fab>
+
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon name="{{item.icon}}" item-left></ion-icon>

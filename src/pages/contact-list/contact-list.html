@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Select Contact</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <button ion-item *ngFor="let contact of contacts" (click)="itemTapped($event, item)">
+            {{ contact.name }}
+            <div class="item-note" item>
+                {{ contact.status }}
+            </div>
+        </button>
+    </ion-list>
+</ion-content>
