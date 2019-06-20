@@ -12,7 +12,7 @@ chat {
 
     .mymessage {
         background: color($colors, primary) !important;
-        color: #000 !important;
+        color: #fff !important;
         border-top-right-radius: 0px !important;
     }
 
@@ -20,6 +20,15 @@ chat {
         background: #dcdcdc !important;
         color: #000 !important;
         border-top-left-radius: 0px !important;
+    }
+
+    .date {
+        padding: 10px !important;
+        transition: all 250ms ease-in-out !important;
+        background: #dcdcdc !important;
+        color: #000 !important;
+        border-radius: 10px !important;
+        margin-bottom: 10px !important;
     }
 
     .time {
