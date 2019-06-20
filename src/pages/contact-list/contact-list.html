@@ -10,10 +10,11 @@
 <ion-content>
     <ion-list>
         <button ion-item *ngFor="let contact of contacts" (click)="itemTapped($event, item)">
-            {{ contact.name }}
-            <div class="item-note" item>
-                {{ contact.status }}
-            </div>
+            <ion-avatar item-start>
+                <img src="assets/imgs/avatar.jpg">
+            </ion-avatar>
+            <h2>{{ contact.name }}</h2>
+            <p>{{ contact.status }}</p>
         </button>
     </ion-list>
 </ion-content>
