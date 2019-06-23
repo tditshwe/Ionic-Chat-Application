@@ -5,30 +5,33 @@ import { MyApp } from './app.component';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
+import { ChatListPage } from '../pages/chat-list/chat-list';
 import { LoginPage } from '../pages/login/login';
 import { ContactListPage } from '../pages/contact-list/contact-list';
 import { ChatPage } from '../pages/chat/chat';
+import { SignUpPage } from '../pages/sign-up/sign-up';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { HTTP } from '@ionic-native/http';
+//import { HTTP } from '@ionic-native/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
+    ChatListPage,
     LoginPage,
     ContactListPage,
     ChatPage,
-    HTTP
+    SignUpPage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -37,14 +40,15 @@ import { HTTP } from '@ionic-native/http';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
+    ChatListPage,
     LoginPage,
     ContactListPage,
     ChatPage,
-    HTTP
+    SignUpPage
   ],
   providers: [
     StatusBar,
+   // HTTP,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

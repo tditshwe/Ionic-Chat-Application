@@ -13,12 +13,12 @@
   </ion-fab>
 
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
+    <button ion-item *ngFor="let chat of chats" (click)="itemTapped($event, chat)">
+      <ion-avatar item-start>
+        <img src="assets/imgs/avatar.jpg">
+        </ion-avatar>
+        <h2>{{ chat.receiver.name }}</h2>
+        <p>{{ chat.lastText }}</p>
     </button>
   </ion-list>
 </ion-content>

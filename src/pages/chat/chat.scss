@@ -13,13 +13,13 @@ chat {
     .mymessage {
         background: color($colors, primary) !important;
         color: #fff !important;
-        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
     }
 
     .othermessage {
         background: #dcdcdc !important;
         color: #000 !important;
-        border-top-left-radius: 0px !important;
+        border-top-right-radius: 0px !important;
     }
 
     .date {
