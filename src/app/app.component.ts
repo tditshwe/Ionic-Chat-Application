@@ -2,12 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ChatListPage } from '../pages/chat-list/chat-list';
+//import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+//import { ChatListPage } from '../pages/chat-list/chat-list';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
-import { ChatPage } from '../pages/chat/chat';
-import { ContactListPage } from '../pages/contact-list/contact-list';
+//import { ChatPage } from '../pages/chat/chat';
+//import { ContactListPage } from '../pages/contact-list/contact-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,10 +33,10 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Sign In', component: LoginPage},
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ChatListPage },
-      { title: 'Single Chat', component: ChatPage },
-      { title: 'Contact List', component: ContactListPage },
+      //{ title: 'Hello Ionic', component: HelloIonicPage },
+      //{ title: 'My First List', component: ChatListPage },
+      //{ title: 'Single Chat', component: ChatPage },
+      //{ title: 'Contact List', component: ContactListPage },
       { title: 'Sign Up', component: SignUpPage }
     ];
   }

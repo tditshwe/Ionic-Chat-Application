@@ -4,6 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
 import { ChatListPage } from '../chat-list/chat-list';
+import { SignUpPage } from '../sign-up/sign-up'
 
 import { Storage } from '@ionic/storage';
 
@@ -49,5 +50,9 @@ export class LoginPage {
           alert.present();
       }
     });
+  }
+
+  signUp() {
+    this.navCtrl.push(SignUpPage);
   }
 }
