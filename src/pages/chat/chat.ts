@@ -18,12 +18,27 @@ import { Storage } from '@ionic/storage';
     message: String;
     httpOptions: { headers: HttpHeaders };
     contact: any;
-    //receiver: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
       private storage: Storage,  public http: HttpClient, public alertCtrl:AlertController) {
       this.selectedChat = navParams.get('item');
       var msgUrl;
+
+      if (this.selectedChat == null)
+      {
+        this.contact = navParams.get('contact');
+
+        this.selectedChat = {
+          isGroup: false,
+          receiverUsername: this.contact.username,
+          receiver: {
+            username: this.contact.username,
+            name: this.contact.name
+          }
+        }
+
+        //alert(JSON.stringify(this.selectedChat))
+      }
 
       this.storage.get('username').then((val) => {
         this.currentUser = val;
@@ -35,24 +50,14 @@ import { Storage } from '@ionic/storage';
             'Authorization': token
           })
         };
-
-        if (this.selectedChat == null)
-        {
-          this.contact = navParams.get('contact');
-          alert(JSON.stringify(this.contact.name));
-          //this.receiver = this.contact.username;
-          this.retrieveMsg("http://localhost:5025/messageHandlingApi/Message/" + this.contact.username);
-        }
+      
+        if (this.selectedChat.isGroup)
+          msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.groupId;
         else
-        {
-          if (this.selectedChat.isGroup)
-            msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.groupId;
-          else
-            msgUrl = "http://localhost:5025/messageHandlingApi/Message/" + this.selectedChat.receiver.username;
+          msgUrl = "http://localhost:5025/messageHandlingApi/Message/" + this.selectedChat.receiver.username;
         
           this.retrieveMsg(msgUrl);     
-          }
-        });
+      });
     }
 
     retrieveMsg(url)
@@ -82,8 +87,7 @@ import { Storage } from '@ionic/storage';
             dateSent: new Date()
           });
     
-          this.message = "";
-        //alert(JSON.stringify(this.messages))
+          this.message = "";       
       }, (err) => {
         const alert = this.alertCtrl.create({
           title: 'Sending Error',
