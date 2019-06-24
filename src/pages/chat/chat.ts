@@ -18,6 +18,7 @@ import { Storage } from '@ionic/storage';
     message: String;
     httpOptions: { headers: HttpHeaders };
     contact: any;
+    //receiver: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
       private storage: Storage,  public http: HttpClient, public alertCtrl:AlertController) {
@@ -28,39 +29,46 @@ import { Storage } from '@ionic/storage';
         this.currentUser = val;
       });
 
-      if (this.selectedChat == null)
-      {
-        this.contact = navParams.get('contact');
-        alert(JSON.stringify(this.contact));
-      }
-      else
-      {
-        if (this.selectedChat.isGroup)
-          msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.groupId;
-        else
-          msgUrl = "http://localhost:5025/messageHandlingApi/Message/" + this.selectedChat.receiver.username;
+      this.storage.get('token').then((token) => {
+        this.httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization': token
+          })
+        };
 
-        this.storage.get('token').then((token) => {
-          this.httpOptions = {
-            headers: new HttpHeaders({
-              'Authorization': token
-            })
-          };
-      
-          this.http.get(msgUrl, this.httpOptions)
-            .subscribe(res => {
-              this.messages = res;
-            }, (err) => {
-              const alert = this.alertCtrl.create({
-                title: 'Chat Error',
-                subTitle: err.message,
-                buttons: ['OK']
-              });
-    
-              alert.present();
+        if (this.selectedChat == null)
+        {
+          this.contact = navParams.get('contact');
+          alert(JSON.stringify(this.contact.name));
+          //this.receiver = this.contact.username;
+          this.retrieveMsg("http://localhost:5025/messageHandlingApi/Message/" + this.contact.username);
+        }
+        else
+        {
+          if (this.selectedChat.isGroup)
+            msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.groupId;
+          else
+            msgUrl = "http://localhost:5025/messageHandlingApi/Message/" + this.selectedChat.receiver.username;
+        
+          this.retrieveMsg(msgUrl);     
+          }
+        });
+    }
+
+    retrieveMsg(url)
+    {
+      this.http.get(url, this.httpOptions)
+        .subscribe(res => {
+          this.messages = res;
+        }, (err) => {
+          const alert = this.alertCtrl.create({
+            title: 'Chat Error',
+            subTitle: err.message,
+            buttons: ['OK']
           });
-        });       
-      }
+
+          alert.present();
+      });  
     }
 
     send(event)

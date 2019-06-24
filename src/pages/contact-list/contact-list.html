@@ -9,7 +9,7 @@
 
 <ion-content>
     <ion-list>
-        <button ion-item *ngFor="let contact of contacts" (click)="itemTapped($event, item)">
+        <button ion-item *ngFor="let contact of contacts" (click)="itemTapped($event, contact)">
             <ion-avatar item-start>
                 <img src="assets/imgs/avatar.jpg">
             </ion-avatar>
