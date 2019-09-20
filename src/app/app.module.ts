@@ -17,6 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 //import { HTTP } from '@ionic-native/http';
 import { HttpClientModule } from '@angular/common/http';
+import { AppProvider } from '../providers/app/app';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
     StatusBar,
    // HTTP,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AppProvider
   ]
 })
 export class AppModule {}
