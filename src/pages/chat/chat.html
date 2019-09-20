@@ -9,11 +9,11 @@
       
 <ion-content>
     <ion-grid>
-        <ion-row>
+        <!--<ion-row>
             <ion-col></ion-col>
             <ion-col class="date" col-auto>20 June 2019</ion-col>
             <ion-col></ion-col>
-        </ion-row>
+        </ion-row>-->
         <ion-row *ngFor="let message of messages">
             <ion-col *ngIf="message.sender == currentUser" class="message mymessage" col-auto>
                 <span class="username">You</span>
