@@ -61,7 +61,7 @@ export class MyApp {
   }
 
   signOut() {
-    this.storage.set('token', null);
+    this.storage.remove('user');
     this.menu.close();
     this.nav.setRoot(LoginPage);
   }

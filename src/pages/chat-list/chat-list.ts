@@ -6,9 +6,11 @@ import { HttpClient } from '@angular/common/http';
 
 //import { ItemDetailsPage } from '../item-details/item-details';
 import { ContactListPage } from '../contact-list/contact-list';
+import { ChatPage } from '../chat/chat';
 
 import { Storage } from '@ionic/storage';
-import { ChatPage } from '../chat/chat';
+import {AppProvider} from '../../providers/app/app';
+import { Chat } from '../../Models/chat';
 
 @Component({
   selector: 'page-list',
@@ -20,7 +22,9 @@ export class ChatListPage {
   chats:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public alertCtrl:AlertController, private storage: Storage, public http: HttpClient) {
+    public alertCtrl:AlertController, private storage: Storage, public http: HttpClient,
+    public appProv: AppProvider
+  ) {
     //this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     //'american-football', 'boat', 'bluetooth', 'build'];
 
@@ -33,25 +37,26 @@ export class ChatListPage {
       });
     }*/
 
-    this.storage.get('token').then((token) => {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Authorization': token
-        })
-      };
-  
-      this.http.get('http://localhost:5025/messageHandlingApi/Chat', httpOptions)
-        .subscribe(res => {
-          this.chats = res;
-        }, (err) => {
-          const alert = this.alertCtrl.create({
-            title: 'Login Error',
-            subTitle: err.message,
-            buttons: ['OK']
-          });
+    console.log(appProv.user);
 
-          alert.present();
-      });
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + appProv.user.api_token
+        //'Content-Type': 'application/json'
+      })
+    };
+
+    this.appProv.getData<Chat[]>('chat', httpOptions)
+      .subscribe(res => {
+        this.chats = res;
+      }, (err) => {
+        const alert = this.alertCtrl.create({
+          title: 'Login Error',
+          subTitle: err.message,
+          buttons: ['OK']
+        });
+
+        alert.present();
     });
   }
 

@@ -25,6 +25,13 @@ export class LoginPage {
     public http: HttpClient,
     public appProv: AppProvider
   ) {
+    this.storage.get('user').then((user) => {
+      if (user)
+      {
+        this.appProv.user = user;
+        this.navCtrl.push(ChatListPage);
+      }
+    });
   }
 
   signIn(event, item) {
@@ -35,7 +42,9 @@ export class LoginPage {
 
     this.appProv.postData<User>('user/signin', data).subscribe(res => {
       this.appProv.currentUsername = res.username;
-      this.storage.set('token', 'Bearer ' + res.api_token);
+      this.appProv.user = res;
+      this.storage.set('user', res);
+      //console.log(res.username);
       this.navCtrl.push(ChatListPage);
     },
     (err) => {
