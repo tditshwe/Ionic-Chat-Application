@@ -3,7 +3,7 @@
         <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>{{ selectedChat.receiver.name }}</ion-title>
+        <ion-title>{{ receipient.display_name }}</ion-title>
     </ion-navbar>
 </ion-header>
       
@@ -25,7 +25,7 @@
 
             <ion-col *ngIf="message.sender != currentUser"></ion-col>
             <ion-col offset-3 col-auto *ngIf="message.sender != currentUser" class="message othermessage">
-                <span class="username">{{ selectedChat.receiver.name }}</span>
+                <span class="username">{{ receipient.display_name }}</span>
                 <br>
                 <span>{{ message.text }}</span>
                 <div padding class="time">{{ message.dateSent | date:'dd-MM hh:mm'}}</div>

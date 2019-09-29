@@ -11,6 +11,7 @@ import { ChatPage } from '../chat/chat';
 import { Storage } from '@ionic/storage';
 import {AppProvider} from '../../providers/app/app';
 import { Chat } from '../../Models/chat';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'page-list',
@@ -20,6 +21,7 @@ export class ChatListPage {
   //icons: string[];
   //items: Array<{title: string, note: string, icon: string}>;
   chats:any;
+  user:User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl:AlertController, private storage: Storage, public http: HttpClient,
@@ -38,6 +40,7 @@ export class ChatListPage {
     }*/
 
     console.log(appProv.user);
+    this.user = appProv.user;
 
     const httpOptions = {
       headers: new HttpHeaders({

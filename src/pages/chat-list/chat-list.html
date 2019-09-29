@@ -17,7 +17,10 @@
       <ion-avatar item-start>
         <img src="assets/imgs/avatar.jpg">
         </ion-avatar>
-        <h2>{{ chat.chat_sender.display_name }}</h2>
+        <h2>
+          <span *ngIf="chat.sender != user.username; else otherUser">{{ chat.chat_sender.display_name }}</span>
+          <ng-template #otherUser>{{ chat.chat_receiver.display_name }}</ng-template>
+        </h2>
         <p>{{ chat.lastText }}</p>
     </button>
   </ion-list>

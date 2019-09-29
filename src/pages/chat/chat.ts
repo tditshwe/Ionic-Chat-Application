@@ -3,9 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-
-import { Storage } from '@ionic/storage';
-
+import {AppProvider} from '../../providers/app/app';
+import { Chat } from '../../Models/chat';
 
 @Component({
     selector: 'chat',
@@ -18,9 +17,12 @@ import { Storage } from '@ionic/storage';
     message: String;
     httpOptions: { headers: HttpHeaders };
     contact: any;
+    receipient: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-      private storage: Storage,  public http: HttpClient, public alertCtrl:AlertController) {
+      public http: HttpClient, public alertCtrl:AlertController,
+      public appProv: AppProvider
+    ) {
       this.selectedChat = navParams.get('item');
       var msgUrl;
 
@@ -29,57 +31,61 @@ import { Storage } from '@ionic/storage';
         this.contact = navParams.get('contact');
 
         this.selectedChat = {
-          isGroup: false,
-          receiverUsername: this.contact.username,
-          receiver: {
+          is_group: false,
+          sender: this.appProv.user.username,
+          receiver: this.contact.username,
+          chat_receiver: {
             username: this.contact.username,
             name: this.contact.name
           }
         }
-
-        //alert(JSON.stringify(this.selectedChat))
       }
 
-      this.storage.get('username').then((val) => {
-        this.currentUser = val;
-      });
+      this.currentUser = this.appProv.user.username;
 
-      this.storage.get('token').then((token) => {
-        this.httpOptions = {
-          headers: new HttpHeaders({
-            'Authorization': token
-          })
-        };
+      if (this.selectedChat.sender != this.currentUser)
+        this.receipient = this.selectedChat.chat_sender;
+      else
+        this.receipient = this.selectedChat.chat_receiver;
       
-        if (this.selectedChat.isGroup)
-          msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.groupId;
-        else
-          msgUrl = "http://localhost:5025/messageHandlingApi/Message/" + this.selectedChat.receiver.username;
-        
-          this.retrieveMsg(msgUrl);     
-      });
+      //console.log(this.receipient.username + '-' + this.currentUser);
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + appProv.user.api_token
+          //'Content-Type': 'application/json'
+        })
+      };
+
+      this.httpOptions = httpOptions;
+    
+      if (this.selectedChat.is_group)
+        msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.id;
+      else
+        msgUrl = "message/" + this.receipient.username;
+      
+      this.retrieveMsg(msgUrl);     
     }
 
     retrieveMsg(url)
     {
-      this.http.get(url, this.httpOptions)
-        .subscribe(res => {
-          this.messages = res;
-        }, (err) => {
-          const alert = this.alertCtrl.create({
-            title: 'Chat Error',
-            subTitle: err.message,
-            buttons: ['OK']
-          });
+      this.appProv.getData<any>(url, this.httpOptions).subscribe(res => {
+        this.messages = res;
+      }, (err) => {
+        const alert = this.alertCtrl.create({
+          title: 'Chat Error',
+          subTitle: err.message,
+          buttons: ['OK']
+        });
 
-          alert.present();
-      });  
+        alert.present();
+      });        
     }
 
     send(event)
     {
       this.http.post("http://localhost:5025/messageHandlingApi/Message/" + 
-        this.selectedChat.receiverUsername + '/' + this.message, null,
+        this.selectedChat.receiver + '/' + this.message, null,
         this.httpOptions).subscribe(res => {
           this.messages.push({
             text: this.message,
