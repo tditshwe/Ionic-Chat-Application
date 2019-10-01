@@ -42,14 +42,7 @@ export class ChatListPage {
     console.log(appProv.user);
     this.user = appProv.user;
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + appProv.user.api_token
-        //'Content-Type': 'application/json'
-      })
-    };
-
-    this.appProv.getData<Chat[]>('chat', httpOptions)
+    this.appProv.getData<Chat[]>('chat')
       .subscribe(res => {
         this.chats = res;
       }, (err) => {

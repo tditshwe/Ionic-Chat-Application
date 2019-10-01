@@ -4,8 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
 import { LoginPage } from '../login/login';
-
-import { Storage } from '@ionic/storage';
+import {AppProvider} from '../../providers/app/app';
 
 @Component({
   selector: 'page-signup',
@@ -20,8 +19,8 @@ export class SignUpPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl:AlertController,
-              public storage: Storage,
-              public http: HttpClient) {
+              public http: HttpClient,
+              public appProv: AppProvider) {
     // If we navigated to this page, we will have an item available as a nav param
   }
 
@@ -29,7 +28,7 @@ export class SignUpPage {
     let data = {
       username: this.username,
       password: this.password,
-      name: this.name
+      display_name: this.name
     };
 
     if (this.passConfirm != this.password)
@@ -44,25 +43,17 @@ export class SignUpPage {
         return;
     }
 
-    this.http.post('http://localhost:5025/messageHandlingApi/Account/', data)
-      .subscribe(res => {       
+    this.appProv.postData('user/register', data)
+      .subscribe(res => {
         this.navCtrl.push(LoginPage);
       }, (err) => {
-        /*if (err.status == 200)
-        {
-          this.storage.set('token', 'Bearer ' + err.error.text);
-          this.navCtrl.push(ChatListPage);
-        }*/
-        //else
-        //{
-          const alert = this.alertCtrl.create({
-            title: 'Sign up Error',
-            subTitle: err.error,
-            buttons: ['OK']
-          });
+        const alert = this.alertCtrl.create({
+          title: 'Sign up Error',
+          subTitle: err.error,
+          buttons: ['OK']
+        });
 
-          alert.present();
-      //}
+        alert.present();
     });
   }
 

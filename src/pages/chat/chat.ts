@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import {AppProvider} from '../../providers/app/app';
 import { Chat } from '../../Models/chat';
@@ -15,7 +14,6 @@ import { Chat } from '../../Models/chat';
     messages: any;
     currentUser: String;
     message: String;
-    httpOptions: { headers: HttpHeaders };
     contact: any;
     receipient: any;
 
@@ -25,6 +23,9 @@ import { Chat } from '../../Models/chat';
     ) {
       this.selectedChat = navParams.get('item');
       var msgUrl;
+
+      if (this.navCtrl.length() == 3)
+        this.navCtrl.remove(2, 1);
 
       if (this.selectedChat == null)
       {
@@ -47,29 +48,18 @@ import { Chat } from '../../Models/chat';
         this.receipient = this.selectedChat.chat_sender;
       else
         this.receipient = this.selectedChat.chat_receiver;
-      
-      //console.log(this.receipient.username + '-' + this.currentUser);
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + appProv.user.api_token
-          //'Content-Type': 'application/json'
-        })
-      };
-
-      this.httpOptions = httpOptions;
-    
       if (this.selectedChat.is_group)
         msgUrl = "http://localhost:5025/messageHandlingApi/Message/groupChat/" + this.selectedChat.id;
       else
         msgUrl = "message/" + this.receipient.username;
-      
-      this.retrieveMsg(msgUrl);     
+
+      this.retrieveMsg(msgUrl);
     }
 
     retrieveMsg(url)
     {
-      this.appProv.getData<any>(url, this.httpOptions).subscribe(res => {
+      this.appProv.getData<any>(url).subscribe(res => {
         this.messages = res;
       }, (err) => {
         const alert = this.alertCtrl.create({
@@ -79,21 +69,20 @@ import { Chat } from '../../Models/chat';
         });
 
         alert.present();
-      });        
+      });
     }
 
     send(event)
     {
-      this.http.post("http://localhost:5025/messageHandlingApi/Message/" + 
-        this.selectedChat.receiver + '/' + this.message, null,
-        this.httpOptions).subscribe(res => {
+      this.appProv.postData("message/" + this.selectedChat.receiver,
+      { text: this.message }).subscribe(res => {
           this.messages.push({
             text: this.message,
             sender: this.currentUser,
             dateSent: new Date()
           });
-    
-          this.message = "";       
+
+          this.message = "";
       }, (err) => {
         const alert = this.alertCtrl.create({
           title: 'Sending Error',

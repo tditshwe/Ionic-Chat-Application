@@ -30,6 +30,7 @@ export class LoginPage {
       {
         this.appProv.user = user;
         this.navCtrl.push(ChatListPage);
+        this.appProv.setTokenHeader(user.api_token);
       }
     });
   }
@@ -43,6 +44,7 @@ export class LoginPage {
     this.appProv.postData<User>('user/signin', data).subscribe(res => {
       this.appProv.currentUsername = res.username;
       this.appProv.user = res;
+      this.appProv.setTokenHeader(res.api_token);
       this.storage.set('user', res);
       //console.log(res.username);
       this.navCtrl.push(ChatListPage);

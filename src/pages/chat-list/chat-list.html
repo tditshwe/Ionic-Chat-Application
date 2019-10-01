@@ -21,7 +21,8 @@
           <span *ngIf="chat.sender != user.username; else otherUser">{{ chat.chat_sender.display_name }}</span>
           <ng-template #otherUser>{{ chat.chat_receiver.display_name }}</ng-template>
         </h2>
-        <p>{{ chat.lastText }}</p>
+        <p>{{ chat.last_chat_message.text }}</p>
+        <div class="date">{{ chat.last_chat_message.date_sent | date:'dd-MM hh:mm' }}</div>
     </button>
   </ion-list>
 </ion-content>

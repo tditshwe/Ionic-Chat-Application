@@ -6,7 +6,7 @@
         <ion-title>{{ receipient.display_name }}</ion-title>
     </ion-navbar>
 </ion-header>
-      
+
 <ion-content>
     <ion-grid>
         <!--<ion-row>
@@ -19,7 +19,7 @@
                 <span class="username">You</span>
                 <br>
                 <span>{{ message.text }}</span>
-                <div padding class="time">{{ message.dateSent | date:'dd-MM hh:mm' }}</div>
+                <div padding class="time">{{ message.date_sent | date:'dd-MM hh:mm' }}</div>
             </ion-col>
             <ion-col offset-4 *ngIf="message.sender == currentUser"></ion-col>
 
@@ -28,7 +28,7 @@
                 <span class="username">{{ receipient.display_name }}</span>
                 <br>
                 <span>{{ message.text }}</span>
-                <div padding class="time">{{ message.dateSent | date:'dd-MM hh:mm'}}</div>
+                <div padding class="time">{{ message.date_sent | date:'dd-MM hh:mm'}}</div>
             </ion-col>
         </ion-row>
     </ion-grid>
