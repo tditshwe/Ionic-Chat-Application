@@ -43,17 +43,16 @@ export class SignUpPage {
         return;
     }
 
+    this.appProv.showLoading('Signing up...');
+
     this.appProv.postData('user/register', data)
       .subscribe(res => {
         this.navCtrl.push(LoginPage);
       }, (err) => {
-        const alert = this.alertCtrl.create({
-          title: 'Sign up Error',
-          subTitle: err.error,
-          buttons: ['OK']
-        });
+        console.log(err.error);
 
-        alert.present();
+        this.appProv.showToast(err.error.message);
+        this.appProv.loading.dismiss();
     });
   }
 

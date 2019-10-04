@@ -41,6 +41,8 @@ export class LoginPage {
       password: this.password
     };
 
+    this.appProv.showLoading('Logging in...')
+
     this.appProv.postData<User>('user/signin', data).subscribe(res => {
       this.appProv.currentUsername = res.username;
       this.appProv.user = res;
@@ -57,6 +59,9 @@ export class LoginPage {
       });
 
       alert.present();
+    },
+    () => {
+      this.appProv.loading.dismiss();
     });
   }
 

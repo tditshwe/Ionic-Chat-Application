@@ -17,12 +17,15 @@ import {AppProvider} from '../../providers/app/app';
       public appProv: AppProvider)
     {
       this.contacts = []
+      this.appProv.showLoading('Waiting for contact list...');
 
       appProv.getData<any>('user/contacts')
         .subscribe(res => {
           this.contacts = res;
+          this.appProv.loading.dismiss();
         }, (err) => {
           alert(JSON.stringify(err));
+          this.appProv.loading.dismiss();
       });
     }
 

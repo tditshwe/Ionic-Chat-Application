@@ -41,6 +41,7 @@ export class ChatListPage {
 
     console.log(appProv.user);
     this.user = appProv.user;
+    this.appProv.showLoading('Retrieving chat list...');
 
     this.appProv.getData<Chat[]>('chat')
       .subscribe(res => {
@@ -53,6 +54,9 @@ export class ChatListPage {
         });
 
         alert.present();
+    },
+    () => {
+      this.appProv.loading.dismiss();
     });
   }
 

@@ -59,16 +59,19 @@ import { Chat } from '../../Models/chat';
 
     retrieveMsg(url)
     {
+      this.appProv.showLoading('Waiting for messages...');
+
       this.appProv.getData<any>(url).subscribe(res => {
         this.messages = res;
-      }, (err) => {
+        this.appProv.loading.dismiss();
+      }, err => {
         const alert = this.alertCtrl.create({
           title: 'Chat Error',
           subTitle: err.message,
           buttons: ['OK']
         });
 
-        alert.present();
+        this.appProv.loading.dismiss();
       });
     }
 
