@@ -21,6 +21,7 @@ export class ChatListPage {
   //icons: string[];
   //items: Array<{title: string, note: string, icon: string}>;
   chats:any;
+  groups:any;
   user:User;
   chat: string = "chats";
 
@@ -44,6 +45,17 @@ export class ChatListPage {
     this.user = appProv.user;
     this.appProv.showLoading('Retrieving chat list...');
 
+    this.getChats();
+  }
+
+  itemTapped(event, item) {
+    this.navCtrl.push(ChatPage, {
+      item: item
+    });
+  }
+
+  getChats()
+  {
     this.appProv.getData<Chat[]>('chat')
       .subscribe(res => {
         this.chats = res;
@@ -60,9 +72,23 @@ export class ChatListPage {
     });
   }
 
-  itemTapped(event, item) {
-    this.navCtrl.push(ChatPage, {
-      item: item
+  getGroups()
+  {
+    this.appProv.showLoading('Retrieving groups...');
+
+    this.appProv.getData('group')
+      .subscribe(res => {
+        this.groups = res;
+        this.appProv.loading.dismiss();
+      }, (err) => {
+        const alert = this.alertCtrl.create({
+          title: 'Login Error',
+          subTitle: err.message,
+          buttons: ['OK']
+        });
+
+        alert.present();
+        this.appProv.loading.dismiss();
     });
   }
 
@@ -73,6 +99,9 @@ export class ChatListPage {
 
   segChange()
   {
-    console.log(this.chat);
+    if (this.chat == "chats")
+      this.getChats();
+    else
+      this.getGroups();
   }
 }
