@@ -48,6 +48,7 @@ export class SignUpPage {
     this.appProv.postData('user/register', data)
       .subscribe(res => {
         this.navCtrl.push(LoginPage);
+        this.appProv.loading.dismiss();
       }, (err) => {
         console.log(err.error);
 

@@ -4,6 +4,15 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>My Chats</ion-title>
+
+    <ion-segment [(ngModel)]="chat">
+      <ion-segment-button value="chats" (click)="segChange()">
+        Chats
+      </ion-segment-button>
+      <ion-segment-button value="groups" (click)="segChange()">
+        Groups
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
@@ -11,18 +20,28 @@
   <ion-fab right bottom>
     <button ion-fab color="secondary"><ion-icon name="add" (click)="newChat($event)"></ion-icon></button>
   </ion-fab>
+  <div [ngSwitch]="chat">
+    <ion-list *ngSwitchCase="'chats'">
+      <button ion-item *ngFor="let chat of chats" (click)="itemTapped($event, chat)">
+        <ion-avatar item-start>
+          <img src="assets/imgs/avatar.jpg">
+          </ion-avatar>
+          <h2>
+            <span *ngIf="chat.sender != user.username; else otherUser">{{ chat.chat_sender.display_name }}</span>
+            <ng-template #otherUser>{{ chat.chat_receiver.display_name }}</ng-template>
+          </h2>
+          <p>{{ chat.last_chat_message.text }}</p>
+          <div class="date">{{ chat.last_chat_message.date_sent | date:'dd-MM hh:mm' }}</div>
+      </button>
+    </ion-list>
 
-  <ion-list>
-    <button ion-item *ngFor="let chat of chats" (click)="itemTapped($event, chat)">
-      <ion-avatar item-start>
-        <img src="assets/imgs/avatar.jpg">
-        </ion-avatar>
-        <h2>
-          <span *ngIf="chat.sender != user.username; else otherUser">{{ chat.chat_sender.display_name }}</span>
-          <ng-template #otherUser>{{ chat.chat_receiver.display_name }}</ng-template>
-        </h2>
-        <p>{{ chat.last_chat_message.text }}</p>
-        <div class="date">{{ chat.last_chat_message.date_sent | date:'dd-MM hh:mm' }}</div>
-    </button>
-  </ion-list>
+    <ion-list *ngSwitchCase="'groups'">
+      <ion-item>
+        <h2>Group A</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Group B</h2>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

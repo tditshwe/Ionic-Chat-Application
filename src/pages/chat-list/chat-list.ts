@@ -22,6 +22,7 @@ export class ChatListPage {
   //items: Array<{title: string, note: string, icon: string}>;
   chats:any;
   user:User;
+  chat: string = "chats";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl:AlertController, private storage: Storage, public http: HttpClient,
@@ -46,6 +47,7 @@ export class ChatListPage {
     this.appProv.getData<Chat[]>('chat')
       .subscribe(res => {
         this.chats = res;
+        this.appProv.loading.dismiss();
       }, (err) => {
         const alert = this.alertCtrl.create({
           title: 'Login Error',
@@ -54,9 +56,7 @@ export class ChatListPage {
         });
 
         alert.present();
-    },
-    () => {
-      this.appProv.loading.dismiss();
+        this.appProv.loading.dismiss();
     });
   }
 
@@ -69,5 +69,10 @@ export class ChatListPage {
   newChat(event)
   {
     this.navCtrl.push(ContactListPage);
+  }
+
+  segChange()
+  {
+    console.log(this.chat);
   }
 }
