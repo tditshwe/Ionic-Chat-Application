@@ -50,7 +50,8 @@ export class ChatListPage {
 
   itemTapped(event, item) {
     this.navCtrl.push(ChatPage, {
-      item: item
+      item: item,
+      chat: this.chat
     });
   }
 
