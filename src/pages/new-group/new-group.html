@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>
+        New Group
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content> 
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Group Name</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list padding-top>
+    <ion-list-header>
+      Participants
+    </ion-list-header>
+
+    <ion-item>At least one participant required</ion-item>
+    <ion-item>
+      <button ion-button outline>
+        Add Participant <ion-icon name="person-add" (click)="newChat($event)"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button color="primary" block (click)="signIn()">Create Group</button> 
+</ion-content>

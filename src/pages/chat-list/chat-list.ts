@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 //import { ItemDetailsPage } from '../item-details/item-details';
 import { ContactListPage } from '../contact-list/contact-list';
 import { ChatPage } from '../chat/chat';
+import { NewGroupPage } from '../new-group/new-group';
 
 import { Storage } from '@ionic/storage';
 import {AppProvider} from '../../providers/app/app';
@@ -95,7 +96,10 @@ export class ChatListPage {
 
   newChat(event)
   {
-    this.navCtrl.push(ContactListPage);
+    if (this.chat == 'groups')
+      this.navCtrl.push(NewGroupPage);
+    else
+      this.navCtrl.push(ContactListPage);
   }
 
   segChange()

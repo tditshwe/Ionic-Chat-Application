@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { ContactListPage } from '../pages/contact-list/contact-list';
 import { ChatPage } from '../pages/chat/chat';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { NewGroupPage } from '../pages/new-group/new-group';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,7 +29,8 @@ import { AppProvider } from '../providers/app/app';
     LoginPage,
     ContactListPage,
     ChatPage,
-    SignUpPage
+    SignUpPage,
+    NewGroupPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { AppProvider } from '../providers/app/app';
     LoginPage,
     ContactListPage,
     ChatPage,
-    SignUpPage
+    SignUpPage,
+    NewGroupPage
   ],
   providers: [
     StatusBar,
