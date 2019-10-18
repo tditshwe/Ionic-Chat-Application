@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { ChatPage } from '../chat/chat';
 import { Storage } from '@ionic/storage';
 import {AppProvider} from '../../providers/app/app';
+import { isRightSide } from 'ionic-angular/umd/util/util';
+import { NewGroupPage } from '../new-group/new-group';
 
 @Component({
     selector: 'contact-list',
@@ -30,7 +32,10 @@ import {AppProvider} from '../../providers/app/app';
     }
 
     itemTapped(event, item) {
-      this.navCtrl.push(ChatPage, {
+
+      const page = this.navParams.get('item') == 'participant' ? NewGroupPage : ChatPage;
+
+      this.navCtrl.push(page, {
         contact: item
       });
     }

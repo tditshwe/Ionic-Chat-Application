@@ -10,6 +10,7 @@ export class AppProvider {
   httpOptions: { headers: HttpHeaders };
   loading: Loading;
   user:User;
+  participants: User[] = [];
 
   constructor(public http: HttpClient,
     private loadingCtrl: LoadingController,
