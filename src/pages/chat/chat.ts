@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import {AppProvider} from '../../providers/app/app';
-import { Chat } from '../../Models/chat';
+import { GroupMenuPage } from '../../pages/group-menu/group-menu';
+import { ContactListPage } from '../contact-list/contact-list';
 
 @Component({
     selector: 'chat',
@@ -20,26 +21,34 @@ import { Chat } from '../../Models/chat';
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
       public http: HttpClient, public alertCtrl:AlertController,
-      public appProv: AppProvider
+      public appProv: AppProvider,
+      public popoverCtrl: PopoverController
     ) {
       this.selectedChat = navParams.get('item');
       var msgUrl: string;
       this.currentUser = this.appProv.user.username;
+      this.contact = navParams.get('contact');
 
       if (this.navCtrl.length() == 3)
         this.navCtrl.remove(2, 1);
 
-      if (navParams.get('chat') == 'groups')
+      if (this.appProv.chatType == 'groups')
       {
+        this.selectedChat = this.selectedChat == null ? this.appProv.currentGroup : this.selectedChat;
+
+        if (this.selectedChat != null)
+          this.appProv.currentGroup = this.selectedChat;
+
         this.chatType = 'groups'
         msgUrl = "message/groups/" + this.selectedChat.id;
+
+        if (this.contact != null)
+          this.addParticipant()
       }
       else
       {
         if (this.selectedChat == null)
-        {
-          this.contact = navParams.get('contact');
-
+        {        
           this.selectedChat = {
             is_group: false,
             sender: this.appProv.user.username,
@@ -106,6 +115,37 @@ import { Chat } from '../../Models/chat';
         });
 
         alert.present();
+      });
+    }
+
+    addParticipant()
+    {
+      this.appProv.postData('group',
+        { group_id: this.selectedChat.id,
+          participant: this.contact.username
+      }).subscribe(() => {
+
+      }, (err) => {
+        const alert = this.alertCtrl.create({
+          title: 'Error adding participant',
+          subTitle: err.error,
+          buttons: ['OK']
+        });
+
+        alert.present();
+      });
+    }
+
+    goToContactList()
+    {
+      this.navCtrl.push(ContactListPage);
+    }
+
+    showGroupMenu(event)
+    {
+      let popover = this.popoverCtrl.create(GroupMenuPage);
+      popover.present({
+        ev: event
       });
     }
   }

@@ -44,14 +44,14 @@ export class ChatListPage {
     console.log(appProv.user);
     this.user = appProv.user;
     this.appProv.showLoading('Retrieving chat list...');
+    this.appProv.chatType = this.chat;
 
     this.getChats();
   }
 
   itemTapped(event, item) {
     this.navCtrl.push(ChatPage, {
-      item: item,
-      chat: this.chat
+      item: item
     });
   }
 
@@ -103,6 +103,8 @@ export class ChatListPage {
 
   segChange()
   {
+    this.appProv.chatType = this.chat;
+
     if (this.chat == "chats")
       this.getChats();
     else

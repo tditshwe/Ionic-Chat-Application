@@ -11,6 +11,8 @@ export class AppProvider {
   loading: Loading;
   user:User;
   participants: User[] = [];
+  chatType: string;
+  currentGroup: any;
 
   constructor(public http: HttpClient,
     private loadingCtrl: LoadingController,
