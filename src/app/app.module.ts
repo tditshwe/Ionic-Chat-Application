@@ -12,6 +12,7 @@ import { ChatPage } from '../pages/chat/chat';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { NewGroupPage } from '../pages/new-group/new-group';
 import { GroupMenuPage } from '../pages/group-menu/group-menu';
+import { GroupInfoPage } from '../pages/group-info/group-info';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import { AppProvider } from '../providers/app/app';
     ChatPage,
     SignUpPage,
     NewGroupPage,
-    GroupMenuPage
+    GroupMenuPage,
+    GroupInfoPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { AppProvider } from '../providers/app/app';
     ChatPage,
     SignUpPage,
     NewGroupPage,
-    GroupMenuPage
+    GroupMenuPage,
+    GroupInfoPage
   ],
   providers: [
     StatusBar,

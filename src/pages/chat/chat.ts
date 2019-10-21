@@ -48,7 +48,7 @@ import { ContactListPage } from '../contact-list/contact-list';
       else
       {
         if (this.selectedChat == null)
-        {        
+        {
           this.selectedChat = {
             is_group: false,
             sender: this.appProv.user.username,
