@@ -20,9 +20,10 @@
     </ion-list-header>
 
     <ion-item>At least one participant required</ion-item>
+    <ion-item *ngFor="let par of participants">{{ par.display_name }}</ion-item>
     <ion-item>
-      <button ion-button outline>
-        Add Participant <ion-icon name="person-add" (click)="newChat($event)"></ion-icon>
+      <button ion-button outline  (click)="addParticipant()">
+        Add Participant <ion-icon name="person-add"></ion-icon>
       </button>
     </ion-item>
   </ion-list>

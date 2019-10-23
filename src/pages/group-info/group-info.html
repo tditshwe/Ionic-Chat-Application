@@ -12,6 +12,6 @@
        <ion-icon name="create" (click)="newChat($event)"></ion-icon>
       </button>
     </ion-item>
-    <ion-item *ngFor="let par of participanys">{{ par.name }}</ion-item>
+    <ion-item *ngFor="let par of participants">{{ par.display_name }}</ion-item>
   </ion-list>
 </ion-content>

@@ -98,6 +98,8 @@ import { ContactListPage } from '../contact-list/contact-list';
       else
         url = "message/" + this.receipient.username
 
+      this.appProv.showLoading('Sending message...');
+
       this.appProv.postData(url,
       { text: this.message }).subscribe(res => {
           this.messages.push({
@@ -107,13 +109,15 @@ import { ContactListPage } from '../contact-list/contact-list';
           });
 
           this.message = "";
+          this.appProv.loading.dismiss();
       }, (err) => {
         const alert = this.alertCtrl.create({
           title: 'Sending Error',
           subTitle: err.message,
           buttons: ['OK']
         });
-
+        
+        this.appProv.loading.dismiss();
         alert.present();
       });
     }
