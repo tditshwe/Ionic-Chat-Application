@@ -15,6 +15,7 @@ export class NewGroupPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    //public navBar: Navbar,
     public appProv: AppProvider) {
     const contact = this.navParams.get('contact');
 
@@ -23,6 +24,10 @@ export class NewGroupPage {
 
     if (contact != null)
       this.participants.push(contact)
+  }
+
+  ionViewDidLoad() {
+    //this.navBar.backButtonClick = this.goBack;
   }
 
   addParticipant()
@@ -44,5 +49,10 @@ export class NewGroupPage {
       alert(JSON.stringify(err));
       this.appProv.loading.dismiss();
     });
+  }
+
+  goBack()
+  {
+    console.log('going back')
   }
 }
