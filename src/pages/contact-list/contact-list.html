@@ -9,12 +9,15 @@
 
 <ion-content>
     <ion-list>
-        <button ion-item *ngFor="let contact of contacts" (click)="itemTapped($event, contact)">
+        <button ion-item *ngFor="let contact of contacts" [disabled]="contact.isParticipant" (click)="itemTapped($event, contact)">
             <ion-avatar item-start>
                 <img src="assets/imgs/avatar.jpg">
             </ion-avatar>
             <h2>{{ contact.display_name }}</h2>
-            <p>{{ contact.status }}</p>
+            <p>
+              <span *ngIf="contact.isParticipant; else notAdded">Already added to list</span>
+              <ng-template #notAdded>{{ contact.status }}</ng-template>
+            </p>
         </button>
     </ion-list>
 </ion-content>

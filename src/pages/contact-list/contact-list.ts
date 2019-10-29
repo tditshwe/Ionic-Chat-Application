@@ -24,11 +24,16 @@ import { NewGroupPage } from '../new-group/new-group';
       appProv.getData<any>('user/contacts')
         .subscribe(res => {
           this.contacts = res;
+          this.validateContacts();
           this.appProv.loading.dismiss();
         }, (err) => {
           alert(JSON.stringify(err));
           this.appProv.loading.dismiss();
       });
+    }
+
+    ionViewWillLeave() {
+      console.log("Looks like contacts about to leave :(");
     }
 
     itemTapped(event, item) {
@@ -37,6 +42,16 @@ import { NewGroupPage } from '../new-group/new-group';
 
       this.navCtrl.push(page, {
         contact: item
+      });
+    }
+
+    validateContacts()
+    {
+      this.contacts.forEach(c => {
+        this.appProv.participants.forEach(p => {
+          if (c.username == p.username)
+            c.isParticipant = true;
+        });
       });
     }
   }

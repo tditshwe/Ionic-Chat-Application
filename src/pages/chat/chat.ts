@@ -116,7 +116,7 @@ import { ContactListPage } from '../contact-list/contact-list';
           subTitle: err.message,
           buttons: ['OK']
         });
-        
+
         this.appProv.loading.dismiss();
         alert.present();
       });
@@ -142,7 +142,21 @@ import { ContactListPage } from '../contact-list/contact-list';
 
     goToContactList()
     {
-      this.navCtrl.push(ContactListPage);
+      this.appProv.showLoading('Getting group participants ...');
+
+      this.appProv.getData<any>('group/' + this.selectedChat.id).subscribe(res => {
+        this.appProv.participants = res;
+        this.navCtrl.push(ContactListPage);
+        this.appProv.loading.dismiss();
+      }, err => {
+        const alert = this.alertCtrl.create({
+          title: 'Chat Error',
+          subTitle: err.message,
+          buttons: ['OK']
+        });
+
+        this.appProv.loading.dismiss();
+      });
     }
 
     showGroupMenu(event)
