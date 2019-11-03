@@ -6,12 +6,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
+    <ion-item *ngIf="!nameEdited">
       <b>{{ group.name }}</b>
-      <button ion-button clear icon-only>
+      <button ion-button clear icon-only (click)="editName()">
        <ion-icon name="create" (click)="newChat($event)"></ion-icon>
       </button>
     </ion-item>
+    <ion-item *ngIf="nameEdited">
+      <ion-label floating>Group name</ion-label>
+      <ion-input type="text" [(ngModel)]="groupName"></ion-input>
+  </ion-item>
     <ion-item *ngFor="let par of participants">{{ par.display_name }}</ion-item>
   </ion-list>
 </ion-content>

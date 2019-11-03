@@ -9,6 +9,8 @@ import {AppProvider} from '../../providers/app/app';
 export class GroupInfoPage {
   participants: any;
   group: any;
+  groupName: string;
+  nameEdited: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appProv: AppProvider) {
     this.appProv.showLoading('Waiting for participants...');
@@ -24,6 +26,11 @@ export class GroupInfoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GroupInfoPage');
+  }
+
+  editName()
+  {
+    this.nameEdited = true;
   }
 
 }
