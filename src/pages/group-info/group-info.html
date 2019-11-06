@@ -15,7 +15,17 @@
     <ion-item *ngIf="nameEdited">
       <ion-label floating>Group name</ion-label>
       <ion-input type="text" [(ngModel)]="groupName"></ion-input>
-  </ion-item>
-    <ion-item *ngFor="let par of participants">{{ par.display_name }}</ion-item>
+      <button ion-button clear icon-only (click)="cancelEdit()"  item-end>
+        <ion-icon name="close" color="danger"></ion-icon>
+      </button>
+    </ion-item>
+    <ion-item *ngIf="nameEdited; else canList">
+      <button ion-button outline  (click)="updateName()">
+        Update
+      </button>
+    </ion-item>
+    <ng-template #canList>
+      <ion-item *ngFor="let par of participants">{{ par.display_name }}</ion-item>
+    </ng-template>
   </ion-list>
 </ion-content>

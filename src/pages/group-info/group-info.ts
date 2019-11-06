@@ -15,6 +15,7 @@ export class GroupInfoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public appProv: AppProvider) {
     this.appProv.showLoading('Waiting for participants...');
     this.group = this.appProv.currentGroup;
+    this.groupName = this.group.name;
 
     this.appProv.getData<any>('group/' + this.group.id).subscribe(res => {
       this.participants = res;
@@ -33,4 +34,13 @@ export class GroupInfoPage {
     this.nameEdited = true;
   }
 
+  cancelEdit()
+  {
+    this.nameEdited = false;
+  }
+
+  updateName()
+  {
+    this.nameEdited = false;
+  }
 }
