@@ -38,6 +38,10 @@ export class AppProvider {
     return this.http.post<T>(this.apiUrl + type, data, this.httpOptions);
   }
 
+  putData<T> (type: string, data: any) {
+    return this.http.put<T>(this.apiUrl + type, data, this.httpOptions);
+  }
+
   showToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,

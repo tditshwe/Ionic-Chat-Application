@@ -7,9 +7,9 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngIf="!nameEdited">
-      <b>{{ group.name }}</b>
-      <button ion-button clear icon-only (click)="editName()">
-       <ion-icon name="create" (click)="newChat($event)"></ion-icon>
+      <b>{{ groupName }}</b>
+      <button *ngIf="group.creator == user" ion-button clear icon-only (click)="editName()">
+       <ion-icon name="create"></ion-icon>
       </button>
     </ion-item>
     <ion-item *ngIf="nameEdited">

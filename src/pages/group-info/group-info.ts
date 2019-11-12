@@ -9,6 +9,7 @@ import {AppProvider} from '../../providers/app/app';
 export class GroupInfoPage {
   participants: any;
   group: any;
+  user: string;
   groupName: string;
   nameEdited: boolean = false;
 
@@ -16,6 +17,7 @@ export class GroupInfoPage {
     this.appProv.showLoading('Waiting for participants...');
     this.group = this.appProv.currentGroup;
     this.groupName = this.group.name;
+    this.user = this.appProv.user.username;
 
     this.appProv.getData<any>('group/' + this.group.id).subscribe(res => {
       this.participants = res;
@@ -41,6 +43,13 @@ export class GroupInfoPage {
 
   updateName()
   {
-    this.nameEdited = false;
+    this.appProv.showLoading('Updating group name ...');
+
+    this.appProv.putData('group/' + this.group.id, { groupName: this.groupName }).subscribe(() => {
+      this.appProv.loading.dismiss();
+      this.nameEdited = false;
+    }, err => {
+      alert(err.console.error());
+    });
   }
 }
