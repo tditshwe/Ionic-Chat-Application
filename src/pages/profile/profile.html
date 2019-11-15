@@ -1,0 +1,47 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-fab right bottom>
+      <button ion-fab color="primary" (click)="profileEdited()"><ion-icon [name]="icon"></ion-icon></button>
+    </ion-fab>
+  <div style="text-align: center">
+    <img class="avatar-img" src="assets/imgs/avatar.jpg">
+
+    <p class="profile-name">{{ user.username }}</p>
+  </div>
+
+  <ion-list *ngIf="!edited">
+    <ion-item>
+      <ion-icon name="clipboard" item-start></ion-icon>
+      <p>Name</p>
+      <h2>{{ user.display_name }}</h2>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="information-circle" item-start></ion-icon>
+      <p>Status</p>
+      <h2>{{ user.status }}</h2>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="edited">
+      <ion-item>
+        <ion-icon name="clipboard" item-start></ion-icon>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.display_name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="information-circle" item-start></ion-icon>
+        <ion-label floating>Status</ion-label>
+        <ion-input type="text" [(ngModel)]="user.status"></ion-input>
+      </ion-item>
+  </ion-list>
+</ion-content>

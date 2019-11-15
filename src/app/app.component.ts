@@ -6,6 +6,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 //import { ChatListPage } from '../pages/chat-list/chat-list';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { ProfilePage } from '../pages/profile/profile';
 //import { ChatPage } from '../pages/chat/chat';
 //import { ContactListPage } from '../pages/contact-list/contact-list';
 
@@ -58,6 +59,10 @@ export class MyApp {
     this.menu.close();
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
+  }
+
+  profile() {
+    this.nav.push(ProfilePage);
   }
 
   signOut() {

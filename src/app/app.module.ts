@@ -13,6 +13,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { NewGroupPage } from '../pages/new-group/new-group';
 import { GroupMenuPage } from '../pages/group-menu/group-menu';
 import { GroupInfoPage } from '../pages/group-info/group-info';
+import { ProfilePage } from '../pages/profile/profile';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,7 +35,8 @@ import { AppProvider } from '../providers/app/app';
     SignUpPage,
     NewGroupPage,
     GroupMenuPage,
-    GroupInfoPage
+    GroupInfoPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { AppProvider } from '../providers/app/app';
     SignUpPage,
     NewGroupPage,
     GroupMenuPage,
-    GroupInfoPage
+    GroupInfoPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
