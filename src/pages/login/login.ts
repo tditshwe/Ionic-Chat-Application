@@ -24,16 +24,7 @@ export class LoginPage {
     public storage: Storage,
     public http: HttpClient,
     public appProv: AppProvider
-  ) {
-    this.storage.get('user').then((user) => {
-      if (user)
-      {
-        this.appProv.user = user;
-        this.navCtrl.push(ChatListPage);
-        this.appProv.setTokenHeader(user.api_token);
-      }
-    });
-  }
+  ) { }
 
   signIn(event, item) {
     let data = {

@@ -21,7 +21,7 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appProv: AppProvider) {
     this.user = this.appProv.user;
-    this.icon =
+    //this.icon =
   }
 
   profileEdited()
@@ -31,6 +31,17 @@ export class ProfilePage {
 
   saveChanges()
   {
-    this.edited = false;
+    this.appProv.showLoading('Updating profile ...');
+
+    this.appProv.putData('user/',
+    {
+      displayName: this.user.display_name,
+      status: this.user.status
+    }).subscribe(() => {
+      this.appProv.loading.dismiss();
+      this.edited = false;
+    }, err => {
+      alert(err.console.error());
+    });
   }
 }

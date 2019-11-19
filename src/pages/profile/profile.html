@@ -12,7 +12,7 @@
 
 <ion-content padding>
     <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="profileEdited()"><ion-icon [name]="icon"></ion-icon></button>
+      <button *ngIf="!edited" ion-fab color="primary" (click)="profileEdited()"><ion-icon name="create"></ion-icon></button>
     </ion-fab>
   <div style="text-align: center">
     <img class="avatar-img" src="assets/imgs/avatar.jpg">
@@ -42,6 +42,11 @@
         <ion-icon name="information-circle" item-start></ion-icon>
         <ion-label floating>Status</ion-label>
         <ion-input type="text" [(ngModel)]="user.status"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="edited">
+        <button ion-button outline  (click)="saveChanges()">
+          Update
+        </button>
       </ion-item>
   </ion-list>
 </ion-content>
