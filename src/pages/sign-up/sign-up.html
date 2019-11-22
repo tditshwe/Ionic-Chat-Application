@@ -3,36 +3,41 @@
       <ion-title>Sign Up</ion-title>
   </ion-toolbar>
   </ion-header>
-  
-  <ion-content>
-    <ion-list>
 
-      <ion-item>
-        <ion-label floating>Username</ion-label>
-        <ion-input type="text" [(ngModel)]="username"></ion-input>
-      </ion-item>
+  <ion-content class="form-content">
+    <form class="form" [formGroup]="sign_up_form">
+        <ion-item>
+          <ion-label floating>Username</ion-label>
+          <ion-input type="text" formControlName="username" [(ngModel)]="username"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label floating>Name</ion-label>
-        <ion-input type="text" [(ngModel)]="name"></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label floating>Name</ion-label>
+          <ion-input type="text" formControlName="name" [(ngModel)]="name" class="form-controll" formControlName="name"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+        <ng-container>
+          <div class="error-message" *ngIf="sign_up_form.get('name').hasError('required') && (sign_up_form.get('name').dirty || sign_up_form.get('name').touched)">
+            Name is require
+          </div>
+        </ng-container>
+      </div>
 
-      <ion-item>
-        <ion-label floating>Confirm password</ion-label>
-        <ion-input type="password" [(ngModel)]="passConfirm"></ion-input>
-      </ion-item>
-  
-    </ion-list>
-  
-    <div padding>
-      <button ion-button color="primary" block (click)="signUp()">Sign Up</button>
-    </div>
-    <div align="center">
-      <button ion-button clear (click)="logIn()">Sign In</button>
-    </div>
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password" formControlName="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Confirm password</ion-label>
+          <ion-input type="password" formControlName="password_confirm" [(ngModel)]="passConfirm"></ion-input>
+        </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" block (click)="signUp()">Sign Up</button>
+      </div>
+      <div align="center">
+        <button ion-button clear (click)="logIn()">Sign In</button>
+      </div>
+    </form>
   </ion-content>
