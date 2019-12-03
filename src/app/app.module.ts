@@ -22,6 +22,7 @@ import { IonicStorageModule } from '@ionic/storage';
 //import { HTTP } from '@ionic-native/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AppProvider } from '../providers/app/app';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { AppProvider } from '../providers/app/app';
   ],
   providers: [
     StatusBar,
-   // HTTP,
+    ImagePicker,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AppProvider

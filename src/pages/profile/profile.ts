@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {AppProvider} from '../../providers/app/app';
-import { User } from '../../Models/user'
+import { User } from '../../Models/user';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 /**
  * Generated class for the ProfilePage page.
@@ -19,7 +20,8 @@ export class ProfilePage {
   edited: boolean = false;
   icon: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appProv: AppProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appProv: AppProvider,
+    public imagePicker: ImagePicker) {
     this.user = this.appProv.user;
     //this.icon =
   }
@@ -43,5 +45,28 @@ export class ProfilePage {
     }, err => {
       alert(err.console.error());
     });
+  }
+
+  openImagePicker(){
+    this.imagePicker.hasReadPermission().then(
+      (result) => {
+        if (result == false) {
+          // no callbacks required as this opens a popup which returns async
+          this.imagePicker.requestReadPermission();
+        }
+        else if (result == true) {
+          this.imagePicker.getPictures({
+            maximumImagesCount: 1
+          }).then(
+            (results) => {
+              for (var i = 0; i < results.length; i++) {
+                alert('Image selected');
+              }
+            }, (err) => console.log(err)
+          );
+        }
+      }, (err) => {
+        console.log(err);
+      });
   }
 }

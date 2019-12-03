@@ -18,6 +18,7 @@
     <img class="avatar-img" src="assets/imgs/avatar.jpg">
 
     <p class="profile-name">{{ user.username }}</p>
+    <button ion-button outline  (click)=" openImagePicker()">Change Profile Picture</button>
   </div>
 
   <ion-list *ngIf="!edited">
