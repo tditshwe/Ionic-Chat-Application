@@ -62,11 +62,11 @@ export class ProfilePage {
               for (var i = 0; i < results.length; i++) {
                 alert('Image selected');
               }
-            }, (err) => console.log(err)
+            }, (err) => alert(err)
           );
         }
       }, (err) => {
-        console.log(err);
+        alert(err);
       });
   }
 }
