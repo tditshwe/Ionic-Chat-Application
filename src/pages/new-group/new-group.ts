@@ -43,6 +43,7 @@ export class NewGroupPage {
   createGroup()
   {
     this.appProv.showLoading('Creating group ...');
+    console.log(this.participants);
 
     this.appProv.postData('group/create/' + this.name,
       { participants: this.participants }).subscribe(res => {
