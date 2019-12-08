@@ -19,8 +19,8 @@ export class NewGroupPage {
     public appProv: AppProvider) {
     const contact = this.navParams.get('contact');
 
-    if (this.navCtrl.length() > 3)
-      this.navCtrl.remove(2, 2)
+    //if (this.navCtrl.length() > 3)
+      //this.navCtrl.remove(2, 2)
 
     if (this.participants == null)
       this.participants = this.appProv.participants;

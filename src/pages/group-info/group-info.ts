@@ -27,8 +27,8 @@ export class GroupInfoPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GroupInfoPage');
+  ionViewWillLeave() {
+    console.log("Group info out :(");
   }
 
   editName()

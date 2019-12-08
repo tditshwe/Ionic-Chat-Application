@@ -41,6 +41,7 @@ export class LoginPage {
       this.storage.set('user', res);
       //console.log(res.username);
       this.navCtrl.push(ChatListPage);
+      this.appProv.loading.dismiss();
     },
     (err) => {
       const alert = this.alertCtrl.create({
@@ -49,10 +50,8 @@ export class LoginPage {
         buttons: ['OK']
       });
 
-      alert.present();
-    },
-    () => {
       this.appProv.loading.dismiss();
+      alert.present();
     });
   }
 

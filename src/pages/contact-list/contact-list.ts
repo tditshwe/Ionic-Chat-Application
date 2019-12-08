@@ -33,16 +33,18 @@ import { NewGroupPage } from '../new-group/new-group';
     }
 
     ionViewWillLeave() {
-      console.log("Looks like contacts about to leave :(");
+      //this.appProv.participants = [];
     }
 
     itemTapped(event, item) {
 
-      const page = this.navParams.get('item') == 'participant' ? NewGroupPage : ChatPage;
+      /*const page = this.navParams.get('item') == 'participant' ? NewGroupPage : ChatPage;
 
       this.navCtrl.push(page, {
         contact: item
-      });
+      });*/
+
+      this.navCtrl.pop();
     }
 
     validateContacts()
