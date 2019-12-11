@@ -29,8 +29,12 @@ import { ContactListPage } from '../contact-list/contact-list';
       this.currentUser = this.appProv.user.username;
       this.contact = navParams.get('contact');
 
-      //if (this.navCtrl.length() == 3)
-       // this.navCtrl.remove(2, 1);
+      console.log(this.navCtrl.length());
+
+      if (this.navCtrl.length() == 2)
+        this.navCtrl.remove(1, 1);
+      else if (this.navCtrl.length() == 3)
+        this.navCtrl.remove(2, 1);
 
       if (this.appProv.chatType == 'groups')
       {
