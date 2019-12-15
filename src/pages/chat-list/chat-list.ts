@@ -43,10 +43,17 @@ export class ChatListPage {
 
     console.log(appProv.user);
     this.user = appProv.user;
-    this.appProv.showLoading('Retrieving chat list...');
+    //this.appProv.showLoading('Retrieving chat list...');
     this.appProv.chatType = this.chat;
 
-    this.getChats();
+    //this.getChats();
+  }
+
+  ionViewWillEnter() {
+    if (this.chat == "chats")
+      this.getChats();
+    else
+      this.getGroups();
   }
 
   itemTapped(event, item) {
@@ -57,6 +64,7 @@ export class ChatListPage {
 
   getChats()
   {
+    this.appProv.showLoading('Retrieving chats...');
     this.appProv.getData<Chat[]>('chat')
       .subscribe(res => {
         this.chats = res;

@@ -34,7 +34,7 @@ import { ContactListPage } from '../contact-list/contact-list';
       if (this.navCtrl.length() == 2)
         this.navCtrl.remove(1, 1);
       else if (this.navCtrl.length() == 3)
-        this.navCtrl.remove(2, 1);
+        this.navCtrl.remove(2, 2);
 
       if (this.appProv.chatType == 'groups')
       {
