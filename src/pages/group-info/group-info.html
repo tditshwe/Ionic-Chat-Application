@@ -25,7 +25,11 @@
       </button>
     </ion-item>
     <ng-template #canList>
-      <ion-item *ngFor="let par of participants">{{ par.display_name }}</ion-item>
+      <ion-item *ngFor="let par of participants">
+        {{ par.display_name }}
+        <ion-icon *ngIf="group.creator == user && par.username != user" name="close" color="danger" item-end></ion-icon>
+        <ion-badge *ngIf="par.username == user" item-end>Group creator</ion-badge>
+      </ion-item>
     </ng-template>
   </ion-list>
 </ion-content>

@@ -75,6 +75,11 @@ import { ContactListPage } from '../contact-list/contact-list';
       this.retrieveMsg(msgUrl);
     }
 
+    ionViewWillUnload	() {
+      console.log('View unloaded')
+      this.appProv.participants = [];
+    }
+
     retrieveMsg(url: string)
     {
       this.appProv.showLoading('Waiting for messages...');
