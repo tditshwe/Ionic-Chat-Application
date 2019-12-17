@@ -14,10 +14,20 @@ export class GroupInfoPage {
   nameEdited: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public appProv: AppProvider) {
-    this.appProv.showLoading('Waiting for participants...');
     this.group = this.appProv.currentGroup;
     this.groupName = this.group.name;
     this.user = this.appProv.user.username;
+
+    this.loadParticipants();
+  }
+
+  ionViewWillLeave() {
+    console.log("Group info out :(");
+  }
+
+  loadParticipants()
+  {
+    this.appProv.showLoading('Waiting for participants...');
 
     this.appProv.getData<any>('group/' + this.group.id).subscribe(res => {
       this.participants = res;
@@ -25,10 +35,6 @@ export class GroupInfoPage {
     }, err => {
       alert(err.console.error());
     });
-  }
-
-  ionViewWillLeave() {
-    console.log("Group info out :(");
   }
 
   editName()
@@ -48,6 +54,21 @@ export class GroupInfoPage {
     this.appProv.putData('group/' + this.group.id, { groupName: this.groupName }).subscribe(() => {
       this.appProv.loading.dismiss();
       this.nameEdited = false;
+    }, err => {
+      alert(err.console.error());
+    });
+  }
+
+  removeParticipant(participant:string) {
+    this.appProv.showLoading('Removing participant...');
+
+    this.appProv.postData('group/removeparticipant',
+      {
+        group_id: this.group.id,
+        participant: participant
+      }).subscribe(() => {
+        this.appProv.loading.dismiss();
+        this.loadParticipants();
     }, err => {
       alert(err.console.error());
     });
