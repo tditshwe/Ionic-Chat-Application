@@ -61,4 +61,12 @@ export class NewGroupPage {
     this.appProv.participants = [];
     this.navCtrl.pop();
   }
+
+  removeParticipant(username: string) {
+    for (let i = 0; i < this.participants.length; i++)
+    {
+      if (this.participants[i].username == username)
+        this.participants.splice(i, 1);
+    }
+  }
 }
