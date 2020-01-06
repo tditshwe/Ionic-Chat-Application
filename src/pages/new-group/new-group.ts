@@ -17,27 +17,27 @@ export class NewGroupPage {
     public navParams: NavParams,
     //public navBar: Navbar,
     public appProv: AppProvider) {
-    const contact = this.navParams.get('contact');
 
     //if (this.navCtrl.length() > 3)
       //this.navCtrl.remove(2, 2)
 
     if (this.participants == null)
       this.participants = this.appProv.participants;
-
-    if (contact != null)
-      this.participants.push(contact)
   }
 
-  ionViewDidLoad() {
-    //this.navBar.backButtonClick = this.goBack;
+  ionViewWillEnter() {
+    const contact = this.appProv.contactItem;
+
+    if (contact != null)
+    {
+      this.participants.push(contact)
+      this.appProv.contactItem = null;
+    }
   }
 
   addParticipant()
   {
-    this.navCtrl.push(ContactListPage, {
-      item: 'participant',
-    });
+    this.navCtrl.push(ContactListPage);
   }
 
   createGroup()

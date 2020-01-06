@@ -45,9 +45,6 @@ import { ContactListPage } from '../contact-list/contact-list';
 
         this.chatType = 'groups'
         msgUrl = "message/groups/" + this.selectedChat.id;
-
-        if (this.contact != null)
-          this.addParticipant()
       }
       else
       {
@@ -73,6 +70,20 @@ import { ContactListPage } from '../contact-list/contact-list';
       }
 
       this.retrieveMsg(msgUrl);
+    }
+
+    ionViewWillEnter() {
+      if (this.appProv.chatType == 'groups')
+      {
+        const contact = this.appProv.contactItem;
+
+        if (contact != null)
+        {
+          this.contact = contact;
+          this.addParticipant()
+          this.appProv.contactItem = null;
+        }
+      }
     }
 
     ionViewWillUnload	() {

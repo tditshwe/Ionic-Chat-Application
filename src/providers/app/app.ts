@@ -13,6 +13,7 @@ export class AppProvider {
   participants: User[] = [];
   chatType: string;
   currentGroup: any;
+  contactItem: User;
 
   constructor(public http: HttpClient,
     private loadingCtrl: LoadingController,

@@ -106,7 +106,9 @@ export class ChatListPage {
     if (this.chat == 'groups')
       this.navCtrl.push(NewGroupPage);
     else
-      this.navCtrl.push(ContactListPage);
+      this.navCtrl.push(ContactListPage, {
+        item: 'chat',
+      });
   }
 
   segChange()

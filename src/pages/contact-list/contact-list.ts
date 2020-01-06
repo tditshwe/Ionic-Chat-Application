@@ -38,13 +38,17 @@ import { NewGroupPage } from '../new-group/new-group';
 
     itemTapped(event, item) {
 
-      const page = this.navParams.get('item') == 'participant' ? NewGroupPage : ChatPage;
+      const page = this.navParams.get('item') == 'chat' ? ChatPage : null;
 
-      this.navCtrl.push(page, {
-        contact: item
-      });
-
-      //this.navCtrl.pop();
+      if (page == null)
+      {
+        this.appProv.contactItem = item;
+        this.navCtrl.pop();
+      }
+      else
+        this.navCtrl.push(page, {
+          contact: item
+        });
     }
 
     validateContacts()

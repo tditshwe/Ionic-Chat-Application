@@ -40,7 +40,7 @@ export class LoginPage {
       this.appProv.setTokenHeader(res.api_token);
       this.storage.set('user', res);
       //console.log(res.username);
-      this.navCtrl.push(ChatListPage);
+      this.navCtrl.setRoot(ChatListPage);
       this.appProv.loading.dismiss();
     },
     (err) => {
