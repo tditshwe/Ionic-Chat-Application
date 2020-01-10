@@ -27,11 +27,11 @@
           <img src="assets/imgs/avatar.jpg">
           </ion-avatar>
           <h2>
-            <span *ngIf="chat.sender != user.username; else otherUser">{{ chat.chat_sender.display_name }}</span>
-            <ng-template #otherUser>{{ chat.chat_receiver.display_name }}</ng-template>
+            <span *ngIf="chat.senderUsername != user.username; else otherUser">{{ chat.sender.name }}</span>
+            <ng-template #otherUser>{{ chat.receiver.name }}</ng-template>
           </h2>
-          <p>{{ chat.last_chat_message.text }}</p>
-          <div class="date">{{ chat.last_chat_message.date_sent | date:'dd-MM hh:mm' }}</div>
+          <p>{{ chat.lastMessage.text }}</p>
+          <div class="date">{{ chat.lastMessage.dateSent | date:'dd-MM hh:mm' }}</div>
       </button>
     </ion-list>
 

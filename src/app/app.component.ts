@@ -57,10 +57,11 @@ export class MyApp {
       this.storage.get('user').then((user) => {
         if (user)
         {
+          console.log(user)
           this.appProv.showLoading('Initialising ...')
-          this.appProv.setTokenHeader(user.api_token);
+          this.appProv.setTokenHeader(user.token);
 
-          this.appProv.getData<User>('user/').subscribe(res => {
+          this.appProv.getData<User>('account/').subscribe(res => {
             this.appProv.user = res;
             this.rootPage = ChatListPage;
             this.appProv.loading.dismiss();

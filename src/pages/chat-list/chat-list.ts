@@ -65,7 +65,7 @@ export class ChatListPage {
   getChats()
   {
     this.appProv.showLoading('Retrieving chats...');
-    this.appProv.getData<Chat[]>('chat')
+    this.appProv.getData<Chat[]>('Chat')
       .subscribe(res => {
         this.chats = res;
         this.appProv.loading.dismiss();

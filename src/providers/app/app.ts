@@ -5,7 +5,7 @@ import { User } from '../../Models/user';
 
 @Injectable()
 export class AppProvider {
-  private apiUrl = 'http://localhost:8000/api/';
+  private apiUrl = 'http://localhost:5025/messageHandlingApi/';
   currentUsername: string;
   httpOptions: { headers: HttpHeaders };
   loading: Loading;

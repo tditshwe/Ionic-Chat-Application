@@ -34,10 +34,10 @@ export class LoginPage {
 
     this.appProv.showLoading('Logging in...')
 
-    this.appProv.postData<User>('user/signin', data).subscribe(res => {
+    this.appProv.postData<User>('account/login', data).subscribe(res => {
       this.appProv.currentUsername = res.username;
       this.appProv.user = res;
-      this.appProv.setTokenHeader(res.api_token);
+      this.appProv.setTokenHeader(res.token);
       this.storage.set('user', res);
       //console.log(res.username);
       this.navCtrl.setRoot(ChatListPage);

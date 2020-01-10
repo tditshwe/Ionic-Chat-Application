@@ -37,7 +37,7 @@ export class ProfilePage {
 
     this.appProv.putData('user/',
     {
-      displayName: this.user.display_name,
+      displayName: this.user.name,
       status: this.user.status
     }).subscribe(() => {
       this.appProv.loading.dismiss();
