@@ -51,20 +51,19 @@ import { ContactListPage } from '../contact-list/contact-list';
         if (this.selectedChat == null)
         {
           this.selectedChat = {
-            is_group: false,
-            sender: this.appProv.user.username,
-            receiver: this.contact.username,
-            chat_receiver: {
+            senderUsername: this.appProv.user.username,
+            receiverUsername: this.contact.username,
+            receiver: {
               username: this.contact.username,
-              display_name: this.contact.display_name
+              name: this.contact.display_name
             }
           }
         }
 
-        if (this.selectedChat.sender != this.currentUser)
-          this.receipient = this.selectedChat.chat_sender;
+        if (this.selectedChat.senderUsername != this.currentUser)
+          this.receipient = this.selectedChat.sender;
         else
-          this.receipient = this.selectedChat.chat_receiver;
+          this.receipient = this.selectedChat.receiver;
 
         msgUrl = "message/" + this.receipient.username;
       }
@@ -94,9 +93,10 @@ import { ContactListPage } from '../contact-list/contact-list';
     retrieveMsg(url: string)
     {
       this.appProv.showLoading('Waiting for messages...');
-
+      console.log(url)
       this.appProv.getData<any>(url).subscribe(res => {
         this.messages = res;
+        console.log(this.messages)
         this.appProv.loading.dismiss();
       }, err => {
         const alert = this.alertCtrl.create({
@@ -120,11 +120,10 @@ import { ContactListPage } from '../contact-list/contact-list';
 
       this.appProv.showLoading('Sending message...');
 
-      this.appProv.postData(url,
-      { text: this.message }).subscribe(res => {
+      this.appProv.postData(url + '/' + this.message, null).subscribe(res => {
           this.messages.push({
             text: this.message,
-            sender: this.currentUser,
+            senderUsername: this.currentUser,
             dateSent: new Date()
           });
 

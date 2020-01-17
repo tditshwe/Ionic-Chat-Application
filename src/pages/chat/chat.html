@@ -6,7 +6,7 @@
             </button>
             <ion-title>
             <span *ngIf="chatType == 'groups'; else notGroup">{{ selectedChat.name }}</span>
-            <ng-template #notGroup>{{ receipient.display_name }}</ng-template>
+            <ng-template #notGroup>{{ receipient.name }}</ng-template>
             </ion-title>
         </ion-navbar>
         <ion-buttons end>
@@ -28,20 +28,20 @@
             <ion-col></ion-col>
         </ion-row>-->
         <ion-row *ngFor="let message of messages">
-            <ion-col *ngIf="message.sender == currentUser" class="message mymessage" col-auto>
+            <ion-col *ngIf="message.senderUsername == currentUser" class="message mymessage" col-auto>
                 <span class="username">You</span>
                 <br>
                 <span>{{ message.text }}</span>
-                <div padding class="time">{{ message.date_sent | date:'dd-MM hh:mm' }}</div>
+                <div padding class="time">{{ message.dateSent | date:'dd-MM hh:mm' }}</div>
             </ion-col>
-            <ion-col offset-4 *ngIf="message.sender == currentUser"></ion-col>
+            <ion-col offset-4 *ngIf="message.senderUsername == currentUser"></ion-col>
 
-            <ion-col *ngIf="message.sender != currentUser"></ion-col>
-            <ion-col offset-3 col-auto *ngIf="message.sender != currentUser" class="message othermessage">
-                <span class="username">{{ message.msg_sender.display_name }}</span>
+            <ion-col *ngIf="message.senderUsername != currentUser"></ion-col>
+            <ion-col offset-3 col-auto *ngIf="message.senderUsername != currentUser" class="message othermessage">
+                <span class="username">{{ message.sender.name }}</span>
                 <br>
                 <span>{{ message.text }}</span>
-                <div padding class="time">{{ message.date_sent | date:'dd-MM hh:mm'}}</div>
+                <div padding class="time">{{ message.dateSent | date:'dd-MM hh:mm'}}</div>
             </ion-col>
         </ion-row>
     </ion-grid>
