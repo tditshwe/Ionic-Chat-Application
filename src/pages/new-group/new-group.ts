@@ -45,8 +45,8 @@ export class NewGroupPage {
     this.appProv.showLoading('Creating group ...');
     console.log(this.participants);
 
-    this.appProv.postData('group/create/' + this.name,
-      { participants: this.participants }).subscribe(res => {
+    this.appProv.postData('group/' + this.name,
+    this.participants).subscribe(res => {
       this.appProv.loading.dismiss();
       this.navCtrl.push(ChatListPage);
     }, (err) => {

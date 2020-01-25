@@ -29,7 +29,7 @@ export class GroupInfoPage {
   {
     this.appProv.showLoading('Waiting for participants...');
 
-    this.appProv.getData<any>('group/' + this.group.id).subscribe(res => {
+    this.appProv.getData<any>('group/participants/' + this.group.id).subscribe(res => {
       this.participants = res;
       this.appProv.loading.dismiss();
     }, err => {
@@ -51,7 +51,9 @@ export class GroupInfoPage {
   {
     this.appProv.showLoading('Updating group name ...');
 
-    this.appProv.putData('group/' + this.group.id, { groupName: this.groupName }).subscribe(() => {
+    this.appProv.putData('group/', {
+      id: this.group.id,
+      name: this.groupName }).subscribe(() => {
       this.appProv.loading.dismiss();
       this.nameEdited = false;
     }, err => {

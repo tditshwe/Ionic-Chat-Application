@@ -10,7 +10,7 @@
             </ion-title>
         </ion-navbar>
         <ion-buttons end>
-            <button *ngIf="selectedChat.creator && selectedChat.creator == currentUser" ion-button icon-only (click)="goToContactList()">
+            <button *ngIf="selectedChat.creatorUsername && selectedChat.creatorUsername == currentUser" ion-button icon-only (click)="goToContactList()">
                 <ion-icon name="person-add"></ion-icon>
             </button>
             <button ion-button icon-only (click)="showGroupMenu($event)">

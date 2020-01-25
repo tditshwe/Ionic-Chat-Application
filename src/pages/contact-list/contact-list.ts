@@ -21,7 +21,7 @@ import { NewGroupPage } from '../new-group/new-group';
       this.contacts = []
       this.appProv.showLoading('Waiting for contact list...');
 
-      appProv.getData<any>('user/contacts')
+      appProv.getData<any>('account/accountlist')
         .subscribe(res => {
           this.contacts = res;
           this.validateContacts();

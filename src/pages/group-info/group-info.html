@@ -8,7 +8,7 @@
   <ion-list>
     <ion-item *ngIf="!nameEdited">
       <b>{{ groupName }}</b>
-      <button *ngIf="group.creator == user" ion-button clear icon-only (click)="editName()">
+      <button *ngIf="group.creatorUsername == user" ion-button clear icon-only (click)="editName()">
        <ion-icon name="create"></ion-icon>
       </button>
     </ion-item>
@@ -26,11 +26,11 @@
     </ion-item>
     <ng-template #canList>
       <ion-item *ngFor="let par of participants">
-        {{ par.display_name }}
-        <button *ngIf="group.creator == user && par.username != user" ion-button clear icon-only (click)="removeParticipant(par.username)" item-end>
+        {{ par.name }}
+        <button *ngIf="group.creatorUsername == user && par.username != user" ion-button clear icon-only (click)="removeParticipant(par.username)" item-end>
           <ion-icon name="close" color="danger"></ion-icon>
         </button>
-        <ion-badge *ngIf="par.username == user" item-end>Group creator</ion-badge>
+        <ion-badge *ngIf="par.username == group.creatorUsername" item-end>Group creator</ion-badge>
       </ion-item>
     </ng-template>
   </ion-list>

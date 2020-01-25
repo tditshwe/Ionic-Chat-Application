@@ -53,7 +53,7 @@ export class SignUpPage {
     let data = {
       username: this.username,
       password: this.password,
-      display_name: this.name
+      name: this.name
     };
 
     if (this.passConfirm != this.password)
@@ -70,7 +70,7 @@ export class SignUpPage {
 
     this.appProv.showLoading('Signing up...');
 
-    this.appProv.postData('user/register', data)
+    this.appProv.postData('account', data)
       .subscribe(res => {
         this.navCtrl.push(LoginPage);
         this.appProv.loading.dismiss();

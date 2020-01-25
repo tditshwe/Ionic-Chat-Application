@@ -13,7 +13,7 @@
             <ion-avatar item-start>
                 <img src="assets/imgs/avatar.jpg">
             </ion-avatar>
-            <h2>{{ contact.display_name }}</h2>
+            <h2>{{ contact.name }}</h2>
             <p>
               <span *ngIf="contact.isParticipant; else notAdded">Already added to list</span>
               <ng-template #notAdded>{{ contact.status }}</ng-template>

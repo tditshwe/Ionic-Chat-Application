@@ -29,7 +29,7 @@ import { ContactListPage } from '../contact-list/contact-list';
       this.currentUser = this.appProv.user.username;
       this.contact = navParams.get('contact');
 
-      console.log(this.navCtrl.length());
+      console.log(this.selectedChat);
 
       if (this.navCtrl.length() == 2)
         this.navCtrl.remove(1, 1);
@@ -44,7 +44,7 @@ import { ContactListPage } from '../contact-list/contact-list';
           this.appProv.currentGroup = this.selectedChat;
 
         this.chatType = 'groups'
-        msgUrl = "message/groups/" + this.selectedChat.id;
+        msgUrl = "message/groupChat/" + this.selectedChat.id;
       }
       else
       {
@@ -93,10 +93,8 @@ import { ContactListPage } from '../contact-list/contact-list';
     retrieveMsg(url: string)
     {
       this.appProv.showLoading('Waiting for messages...');
-      console.log(url)
       this.appProv.getData<any>(url).subscribe(res => {
         this.messages = res;
-        console.log(this.messages)
         this.appProv.loading.dismiss();
       }, err => {
         const alert = this.alertCtrl.create({
@@ -116,7 +114,7 @@ import { ContactListPage } from '../contact-list/contact-list';
       if (this.chatType == 'groups')
         url = 'message/group/' + this.selectedChat.id
       else
-        url = "message/" + this.receipient.username
+        url = "message/sendtogroup/" + this.receipient.username + '/' + this.message
 
       this.appProv.showLoading('Sending message...');
 
@@ -143,11 +141,13 @@ import { ContactListPage } from '../contact-list/contact-list';
 
     addParticipant()
     {
-      this.appProv.postData('group',
-        { group_id: this.selectedChat.id,
-          participant: this.contact.username
-      }).subscribe(() => {
+      this.appProv.showLoading('Adding participant...');
 
+      this.appProv.postData('group',
+        { groupId: this.selectedChat.id,
+          accountUsername: this.contact.username
+      }).subscribe(() => {
+        this.appProv.loading.dismiss();
       }, (err) => {
         const alert = this.alertCtrl.create({
           title: 'Error adding participant',
@@ -163,7 +163,7 @@ import { ContactListPage } from '../contact-list/contact-list';
     {
       this.appProv.showLoading('Getting group participants ...');
 
-      this.appProv.getData<any>('group/' + this.selectedChat.id).subscribe(res => {
+      this.appProv.getData<any>('group/participants/' + this.selectedChat.id).subscribe(res => {
         this.appProv.participants = res;
         this.navCtrl.push(ContactListPage);
         this.appProv.loading.dismiss();

@@ -24,7 +24,7 @@
 
     <ion-item *ngIf="participants.length == 0" class="error-message">At least one participant required</ion-item>
     <ion-item *ngFor="let par of participants">
-      {{ par.display_name }}
+      {{ par.name }}
       <button ion-button clear icon-only (click)="removeParticipant(par.username)" item-end>
         <ion-icon name="close" color="danger"></ion-icon>
       </button>
