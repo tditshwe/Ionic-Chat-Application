@@ -112,13 +112,13 @@ import { ContactListPage } from '../contact-list/contact-list';
       var url: string;
 
       if (this.chatType == 'groups')
-        url = 'message/group/' + this.selectedChat.id
+        url = "message/sendtogroup/" + this.selectedChat.id + '/' + this.message
       else
-        url = "message/sendtogroup/" + this.receipient.username + '/' + this.message
+        url = "message/" + this.receipient.username + '/' + this.message
 
       this.appProv.showLoading('Sending message...');
 
-      this.appProv.postData(url + '/' + this.message, null).subscribe(res => {
+      this.appProv.postData(url, null).subscribe(res => {
           this.messages.push({
             text: this.message,
             senderUsername: this.currentUser,

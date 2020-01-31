@@ -64,11 +64,7 @@ export class GroupInfoPage {
   removeParticipant(participant:string) {
     this.appProv.showLoading('Removing participant...');
 
-    this.appProv.postData('group/removeparticipant',
-      {
-        group_id: this.group.id,
-        participant: participant
-      }).subscribe(() => {
+    this.appProv.postData('group/' + this.group.id + '/' + participant, null).subscribe(() => {
         this.appProv.loading.dismiss();
         this.loadParticipants();
     }, err => {
